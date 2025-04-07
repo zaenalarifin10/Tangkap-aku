@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tombol Petak Umpet</title>
+  <script>
+    const messages = [
+      "Bukan aku di sini",
+      "Aku di sini ternyata",
+      "Eits salah pencet!",
+      "Coba lagi dong~",
+      "Deketin terus ya~",
+      "Hehe hampir aja",
+      "Jangan nyerah ya",
+      "Ayo cari aku!",
+      "Sini dong~",
+      "Kamu lucu deh"
+    ];
+
+    function moveButton() {
+      const button = document.getElementById("elusBtn");
+
+      // Ganti teks secara acak
+      const randomText = messages[Math.floor(Math.random() * messages.length)];
+      button.innerText = randomText;
+
+      // Pindah posisi acak
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 50);
+      button.style.position = "absolute";
+      button.style.left = `${x}px`;
+      button.style.top = `${y}px`;
+    }
+
+    // Untuk desktop: gerak pas mouse deket
+    document.addEventListener("mousemove", function (e) {
+      const button = document.getElementById("elusBtn");
+      const rect = button.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      const distance = Math.hypot(rect.x - mouseX, rect.y - mouseY);
+
+      if (distance < 100) {
+        moveButton();
+      }
+    });
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-100 flex items-center justify-center h-screen relative overflow-hidden">
+  <button
+    id="elusBtn"
+    onclick="moveButton()"
+    class="bg-purple-500 text-white font-bold py-2 px-4 rounded-xl shadow-md transition duration-300"
+  >
+    Tekan Aku
+  </button>
+</body>
+  </html>
